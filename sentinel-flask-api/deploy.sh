@@ -41,7 +41,7 @@ pip install -r requirements.txt
 
 # Create necessary directories
 echo "Creating model directories..."
-mkdir -p models/yolov5
+mkdir -p models/yolov
 mkdir -p models/yolov7
 mkdir -p uploads
 
