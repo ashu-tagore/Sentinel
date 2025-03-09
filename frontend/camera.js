@@ -134,7 +134,7 @@ async function sendImageToBackend(imageData) {
         ? "http://localhost:3000"
         : "";
 
-    const response = await fetch(`${baseUrl}/api/detection/analyze`, {
+    const response = await fetch(`http://192.168.1.80:5000/analyze`, {
       method: "POST",
       body: formData,
       headers: {

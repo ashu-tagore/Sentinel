@@ -8,7 +8,6 @@ const morgan = require("morgan"); // For logging
 const compression = require("compression"); // For response compression
 
 // Import routes and utilities
-const detectionRoutes = require("./routes/detectionRoutes");
 const databaseRoutes = require("./routes/databaseRoutes");
 const connectDB = require("./config/database");
 const { initializeAllModels } = require("./utils/modelInitialization");
@@ -201,7 +200,7 @@ async function startServer() {
     });
     
     // Apply routes
-    app.use("/api/detection", detectionRoutes);
+    // app.use("/api/detection", detectionRoutes);
     app.use("/api/database", databaseRoutes);
     
     // Handle pre-flight requests
@@ -248,12 +247,12 @@ async function startServer() {
     }
     
     // Initialize ML models in the background (don't block server startup)
-    initializeAllModels()
-      .then(() => console.log("Model initialization completed"))
-      .catch(err => {
-        console.warn("Model initialization warning:", err.message);
-        console.warn("The server started, but model functionality may not work until model files are properly configured.");
-      });
+    // initializeAllModels()
+    //   .then(() => console.log("Model initialization completed"))
+    //   .catch(err => {
+    //     console.warn("Model initialization warning:", err.message);
+    //     console.warn("The server started, but model functionality may not work until model files are properly configured.");
+    //   });
     
     // Start the server
     app.listen(PORT, () => {
