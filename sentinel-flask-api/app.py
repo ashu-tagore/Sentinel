@@ -24,6 +24,11 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+@app.after_request
+def add_cors_headers(response):
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    return response
+
 # Configure upload folder
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -127,13 +132,13 @@ def load_models():
 
     # Load YOLOv5 using YOLOv5's attempt_load
     try:
-        # sys.path.insert(0, os.path.join(os.getcwd(), 'yolov5'))
-        # from yolov5.models.experimental import attempt_load
+        sys.path.insert(0, os.path.join(os.getcwd(), 'yolov5'))
+        from yolov5.models.experimental import attempt_load
         logger.info("Loading YOLOv5 model...")
         yolov5_path = os.path.join('model', 'yolov', 'modelv5.pt')
         if os.path.exists(yolov5_path):
-            # yolov5_model = attempt_load(yolov5_path)
-            # yolov5_model.eval()
+            yolov5_model = attempt_load(yolov5_path)
+            yolov5_model.eval()
             logger.info("YOLOv5 model loaded successfully")
         else:
             logger.warning(f"YOLOv5 model file not found at {yolov5_path}")
@@ -142,17 +147,17 @@ def load_models():
 
     # YOLOv7 loading (if needed; otherwise you can remove this block)
     try:
-        import numpy.core.multiarray
-        sys.path.insert(0, os.path.join(os.getcwd(), 'yolov7'))
-        from yolov7.models.experimental import attempt_load as attempt_load_yolov7
+        # import numpy.core.multiarray
+        # sys.path.insert(0, os.path.join(os.getcwd(), 'yolov7'))
+        # from yolov7.models.experimental import attempt_load as attempt_load_yolov7
         logger.info("Loading YOLOv7 model...")
         yolov7_path = os.path.join('model', 'yolov7', 'modelv7.pt')
         if os.path.exists(yolov7_path):
             # If you plan to use YOLOv7, ensure its repository is cloned and accessible.
-            with torch.serialization.safe_globals([numpy.core.multiarray._reconstruct]):
-                yolov7_model = attempt_load_yolov7(yolov7_path)
-            # yolov7_model = torch.load(yolov7_path, map_location=device, weights_only=False)
-            yolov7_model.eval()
+            # with torch.serialization.safe_globals([numpy.core.multiarray._reconstruct]):
+            #     yolov7_model = attempt_load_yolov7(yolov7_path)
+            # # yolov7_model = torch.load(yolov7_path, map_location=device, weights_only=False)
+            # yolov7_model.eval()
             logger.info("YOLOv7 model loaded successfully")
         else:
             logger.warning(f"YOLOv7 model file not found at {yolov7_path}")
