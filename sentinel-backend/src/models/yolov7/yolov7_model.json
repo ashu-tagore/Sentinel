@@ -1,0 +1,68 @@
+{
+    "model": {
+        "xml": "yolov7_model.xml",
+        "bin": "yolov7_model.bin"
+    },
+    "nn_config": {
+        "output_format": "detection",
+        "NN_family": "YOLO",
+        "input_size": "640x640",
+        "NN_specific_metadata": {
+            "classes": 9,
+            "coordinates": 4,
+            "anchors": [
+                12.0,
+                16.0,
+                19.0,
+                36.0,
+                40.0,
+                28.0,
+                36.0,
+                75.0,
+                76.0,
+                55.0,
+                72.0,
+                146.0,
+                142.0,
+                110.0,
+                192.0,
+                243.0,
+                459.0,
+                401.0
+            ],
+            "anchor_masks": {
+                "side80": [
+                    0,
+                    1,
+                    2
+                ],
+                "side40": [
+                    3,
+                    4,
+                    5
+                ],
+                "side20": [
+                    6,
+                    7,
+                    8
+                ]
+            },
+            "iou_threshold": 0.5,
+            "confidence_threshold": 0.5
+        }
+    },
+    "mappings": {
+        "labels": [
+            "Early Blight",
+            "Healthy",
+            "Late Blight",
+            "Leaf Miner",
+            "Leaf Mold",
+            "Mosaic Virus",
+            "Septoria",
+            "Spider Mites",
+            "Yellow Leaf Curl Virus"
+        ]
+    },
+    "version": 1
+}

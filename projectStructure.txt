@@ -1,0 +1,47 @@
+SENTINEL/
+├── .vscode/                         # VS Code configuration files
+├── frontend/                        # Frontend application files
+│   ├── assets/                      # Static assets (images, icons)
+│   ├── index.html                   # Main HTML file
+│   ├── scan.html                    # Camera scanning page
+│   ├── camera.js                    # Camera functionality
+│   ├── script.js                    # Main JavaScript
+│   └── style.css                    # CSS styles
+├── sentinel-backend/                # Backend application files
+│   ├── node_modules/                # Node.js dependencies
+│   ├── src/                         # Source code directory
+│   │   ├── config/                  # Configuration files
+│   │   │   └── database.js          # Database connection setup
+│   │   ├── controllers/             # Controllers directory
+│   │   │   ├── detectionController.js  # Enhanced disease detection logic with dual models
+│   │   │   └── diseaseController.js    # Handles disease-related operations
+│   │   ├── models/                  # Models directory
+│   │   │   ├── yolov5/              # YOLOv5 model files
+│   │   │   │   ├── yolov5_model.json  # YOLOv5 model definition
+│   │   │   │   └── yolov5_model.bin   # YOLOv5 model weights
+│   │   │   ├── yolov7/              # YOLOv7 model files
+│   │   │   │   ├── yolov7_model.json  # YOLOv7 model definition
+│   │   │   │   └── yolov7_model.bin   # YOLOv7 model weights
+│   │   │   |
+│   │   │   ├── Detection.js     # Schema for detection data
+│   │   │   └── Disease.js       # Schema for disease information
+│   │   ├── routes/                  # API routes directory
+│   │   │   ├── databaseRoutes.js    # Routes for database operations
+│   │   │   └── detectionRoutes.js   # Routes for detection functionality
+│   │   ├── scripts/                 # Utility scripts
+│   │   │   └── setupModel.js        # Script to set up model directories
+│   │   ├── tests/                   # Test files directory
+│   │   │   └── testDatabase.js      # Tests for database functionality
+│   │   ├── uploads/                 # Directory for storing uploaded images 
+│   │   └── utils/                   # Utility functions and helpers
+│   │       ├── imageProcessor.js    # Image processing utilities
+│   │       ├── modelInitialization.js # Dual model loading and initialization
+│   │       └── seedDiseases.js      # Script to seed initial disease data
+│   ├── app.js                       # Updated main server file with dual model integration
+│   ├── package.json                 # Node.js dependencies and scripts
+│   └── package-lock.json            # Lockfile for exact dependency versions
+├── uploads/                         # Directory for uploaded files
+├── README.md                        # Project documentation
+├── .gitignore                       # Git ignore file
+├── .hintrc                          # Configuration for linting/code quality
+└── project_structure.txt            # Documentation of project structure

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Camera Scanner</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .model-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .model-section {
+        flex: 1;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      .result-display {
+        min-height: 300px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body class="camera-page">
+    <video id="camera-stream" autoplay playsinline muted></video>
+    <div class="camera-controls">
+      <button id="switch-camera">Switch Camera</button>
+      <button id="fullscreen">Fullscreen</button>
+    </div>
+
+    <div class="container">
+      <div class="model-container">
+        <div class="model-section">
+          <h2>YOLOv5 Detection</h2>
+          <div id="yolov5-result" class="result-display"></div>
+        </div>
+        <div class="model-section">
+          <h2>YOLOv7 Detection</h2>
+          <div id="yolov7-result" class="result-display"></div>
+        </div>
+      </div>
+      <div class="upload-section">
+        <input type="file" id="image-upload" accept="image/*" />
+        <!-- <button onclick="analyzeImage()">Analyze Image</button> -->
+      </div>
+    </div>
+
+    <script>
+      async function analyzeImage() {
+        const fileInput = document.getElementById("image-upload");
+        const formData = new FormData();
+        formData.append("image", fileInput.files[0]);
+
+        const response = await fetch("/api/detection/analyze", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          displayResults("yolov5-result", data.data.yoloV5Prediction);
+          displayResults("yolov7-result", data.data.yoloV7Prediction);
+        }
+      }
+
+      function displayResults(elementId, prediction) {
+        const element = document.getElementById(elementId);
+        // Format and display the prediction results
+        element.innerHTML = `
+                <div class="prediction-result">
+                    <p>Confidence: ${prediction.confidence}%</p>
+                    <p>Disease: ${prediction.disease}</p>
+                    <p>Treatment: ${prediction.treatment}</p>
+                </div>
+            `;
+      }
+    </script>
+    <script src="script.js"></script>
+    <script src="camera.js"></script>
+  </body>
+</html>
